@@ -15,29 +15,39 @@
       align-items: center;
       justify-content: center;
       min-height: 100vh;
-      overflow-x: hidden;
+      text-align: center;
     }
     h1 {
       font-size: 2.5em;
-      text-align: center;
       margin-bottom: 0.5em;
     }
     p {
       font-size: 1.2em;
-      text-align: center;
       max-width: 500px;
       margin-bottom: 2em;
+    }
+    button {
+      padding: 0.8em 2em;
+      font-size: 1em;
+      border: none;
+      border-radius: 8px;
+      background-color: #f78da7;
+      color: white;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+    button:hover {
+      background-color: #ec6d8f;
     }
     .option {
       background-color: #fff;
       border-radius: 16px;
       box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
       padding: 1.5em;
-      margin: 1em;
+      margin: 1em auto;
       cursor: pointer;
       transition: transform 0.2s ease, box-shadow 0.2s ease;
       max-width: 400px;
-      text-align: center;
     }
     .option:hover {
       transform: translateY(-5px);
@@ -48,7 +58,6 @@
     }
     .thankyou {
       font-size: 1.5em;
-      text-align: center;
       margin-top: 2em;
     }
   </style>
@@ -56,7 +65,7 @@
 <body>
   <div id="intro">
     <h1>Stella, Your Birthday Adventure Awaits...</h1>
-    <p>Just one question — pick the one that feels the most *you*.</p>
+    <p>Just one question – pick the one that you want to try!</p>
     <button onclick="showQuiz()">Start</button>
   </div>
 
@@ -75,7 +84,7 @@
 
     <div class="option" onclick="submitAnswer('Singapore Flyer Dining')">
       🎡 <strong>Dining above lights</strong><br />
-      On a spaceship above in the skies.
+      On a spaceship in the skies.
     </div>
 
     <div class="option" onclick="submitAnswer('Dinner Cruise')">
@@ -107,14 +116,16 @@
     }
 
     function submitAnswer(choice) {
-      console.log("Chosen:", choice);
-
-      // Replace this with integration if you want it stored somewhere
-      // For now, just show thank you message
-      document.getElementById("quiz").classList.add("hidden");
-      document.getElementById("thankyou").classList.remove("hidden");
-
-      // Optional: send answer to your email or Google Sheet
+      fetch("https://formspree.io/f/mrbpkyqa", {
+        method: "POST",
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ choice })
+      }).then(() => {
+        document.getElementById("quiz").classList.add("hidden");
+        document.getElementById("thankyou").classList.remove("hidden");
+      });
     }
   </script>
 </body>
