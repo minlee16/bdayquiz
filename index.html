@@ -53,6 +53,23 @@
       transform: translateY(-5px);
       box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
     }
+    .input-option {
+      margin: 2em auto;
+      max-width: 400px;
+    }
+    .input-option input {
+      width: 100%;
+      padding: 1em;
+      border-radius: 12px;
+      border: 1px solid #ccc;
+      font-size: 1em;
+      text-align: center;
+    }
+    .input-option button {
+      margin-top: 1em;
+      width: 100%;
+      background-color: #f78da7;
+    }
     .hidden {
       display: none;
     }
@@ -101,6 +118,12 @@
       🚠 <strong>Dinner Above Land & Sea</strong><br />
       A private capsule gliding through the sky.
     </div>
+
+    <div class="input-option">
+      <p>No! I prefer...</p>
+      <input type="text" id="customChoice" placeholder="Type your idea here...">
+      <button onclick="submitCustomAnswer()">Submit</button>
+    </div>
   </div>
 
   <div id="thankyou" class="hidden">
@@ -126,6 +149,12 @@
         document.getElementById("quiz").classList.add("hidden");
         document.getElementById("thankyou").classList.remove("hidden");
       });
+    }
+
+    function submitCustomAnswer() {
+      const input = document.getElementById("customChoice").value;
+      if (input.trim() === "") return;
+      submitAnswer("Custom: " + input);
     }
   </script>
 </body>
